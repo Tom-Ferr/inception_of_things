@@ -6,4 +6,4 @@ mkdir /home/vagrant/.kube
 cp /etc/rancher/k3s/k3s.yaml $KUBECONFIG && chown vagrant $KUBECONFIG
 chmod 600 $KUBECONFIG
 echo "export KUBECONFIG=$KUBECONFIG" >> /etc/profile.d/myvar.sh
-cp /var/lib/rancher/k3s/server/node-token /home/vagrant/.confs/node-token
+cp /var/lib/rancher/k3s/server/node-token /home/vagrant/.confs/node.token
