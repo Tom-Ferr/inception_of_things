@@ -16,6 +16,9 @@ spec:
       containers:
         - name: app-one
           image: "paulbouwer/hello-kubernetes:1.10"
+          env:
+            - name: MESSAGE
+              value: "Hello from App1"
           resources:
             requests:
               memory: "64Mi"

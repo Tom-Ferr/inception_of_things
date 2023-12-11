@@ -1,6 +1,6 @@
 apt update
 apt install -y curl wget systemd
-curl -sfL https://get.k3s.io | sh -s - --disable=traefik
+curl -sfL https://get.k3s.io | sh -s - --flannel-iface=enp0s8 --disable=traefik
 mkdir /home/vagrant/.kube
 cp /etc/rancher/k3s/k3s.yaml $KUBECONFIG && chown vagrant $KUBECONFIG
 chmod 600 $KUBECONFIG
