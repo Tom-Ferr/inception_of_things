@@ -7,7 +7,7 @@ metadata:
 spec:
   project: wil-app-project
   source:
-    repoURL: https://github.com/Tom-Ferr/tde-cama.git
+    repoURL: https://github.com/Tom-Ferr/tde-cama_iot.git
     targetRevision: main
     path: app
     directory:

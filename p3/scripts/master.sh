@@ -26,6 +26,7 @@ chown vagrant $KUBECONFIG
 chmod 600 $KUBECONFIG
 echo "export KUBECONFIG=$KUBECONFIG" >> /etc/profile.d/myvar.sh
 
+#Argocd
 kubectl create namespace argocd
 
 sleep 60
