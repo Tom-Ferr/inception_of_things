@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    app: wil-app
+  name: wil-app
+spec:
+  project: wil-app-project
+  source:
+    repoURL: https://github.com/Tom-Ferr/tde-cama_iot.git
+    targetRevision: main
+    path: app
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
