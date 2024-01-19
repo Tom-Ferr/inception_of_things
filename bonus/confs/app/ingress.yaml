@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wil-app-ingress
+  labels:
+    app: wil-app
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    # traefik.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: "wil.app"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wil-app
+            port:
+              number: 80

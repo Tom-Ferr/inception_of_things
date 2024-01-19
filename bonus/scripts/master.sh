@@ -33,29 +33,33 @@ chmod 700 get_helm.sh
 
 sleep 60
 
-#Nginx
+# #Nginx
 kubectl create namespace nginx-ingress
 helm repo add nginx-stable https://helm.nginx.com/stable
 helm repo update
-helm install nginx-ingress nginx-stable/nginx-ingress --set controller.service.loadBalancerIP=192.168.56.110,controller.service.externalIPs={192.168.56.110},rbac.create=true -n nginx-ingress
+helm install nginx-ingress nginx-stable/nginx-ingress -n nginx-ingress --set rbac.create=true,controller.service.externalIPs={172.18.0.2} #,controller.service.loadBalancerIP=192.168.56.110 
 
-#Gitlab
+# #Gitlab
 kubectl create namespace gitlab
-kubectl apply -f .confs/pd-ssd-storage.yaml
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
-helm install gitlab -f .confs/values.yaml -n gitlab gitlab/gitlab
+helm install gitlab -f .confs/gitlab_values.yaml -n gitlab gitlab/gitlab
+kubectl get secret gitlab-gitlab-initial-root-password -n gitlab -o jsonpath="{.data.password}" | base64 -d > .confs/gitlab_root.secret
 
-#Argocd
-# kubectl create namespace argocd
 
-# kubectl apply -f .confs/install.yaml -n argocd
-# kubectl apply -f .confs/ingress.yaml -n argocd
-# kubectl rollout status deployment.apps/argocd-server -n argocd
+# Argocd
+kubectl create namespace argocd
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+helm install my-argo-cd -f .confs/argocd_values.yaml argo/argo-cd -n argocd
+kubectl rollout status deployment.apps/my-argo-cd-argocd-server -n argocd
 
-# kubectl create namespace dev
+kubectl create namespace dev
 
-# kubectl apply -f .confs/project.yaml -n argocd
-# kubectl apply -f .confs/application.yaml -n argocd
+kubectl apply -f .confs/project.yaml -n argocd
+kubectl apply -f .confs/application.yaml -n argocd
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d > .confs/argocd_admin.secret
+
+git config --global http.sslVerify false
 
 
