@@ -7,7 +7,7 @@ metadata:
 spec:
   project: wil-app-project
   source:
-    repoURL: https://gitlab.tdecama/root/wil-app.git
+    repoURL: https://gitlab.tdecama.io/root/wil-app.git
     targetRevision: main
     path: app
     directory:

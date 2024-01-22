@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: "nginx"
   rules:
-  - host: "wil.app"
+  - host: "tdecama.io"
     http:
       paths:
       - path: /

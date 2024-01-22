@@ -60,6 +60,9 @@ kubectl apply -f .confs/project.yaml -n argocd
 kubectl apply -f .confs/application.yaml -n argocd
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d > .confs/argocd_admin.secret
 
+echo "172.18.0.2 gitlab.tdecama.io" >> /etc/hosts 
+echo "172.18.0.2 tdecama.io" >> /etc/hosts 
+
 git config --global http.sslVerify false
 
 
