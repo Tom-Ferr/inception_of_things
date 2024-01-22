@@ -22,16 +22,16 @@ wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 chmod +x /usr/local/bin/k3d
 k3d cluster create my-cluster --api-port 6443 -p 8888:80@loadbalancer --agents 2  --k3s-arg "--disable=traefik@server:0"
 
-chown vagrant $KUBECONFIG
-chmod 600 $KUBECONFIG
-echo "export KUBECONFIG=$KUBECONFIG" >> /etc/profile.d/myvar.sh
+# chown vagrant $KUBECONFIG
+# chmod 600 $KUBECONFIG
+# echo "export KUBECONFIG=$KUBECONFIG" >> /etc/profile.d/myvar.sh
 
 #Helm
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 
-sleep 60
+sleep 30
 
 kubectl delete configmaps coredns -n kube-system
 kubectl create -n kube-system -f /home/parrot/confs/coredns_config.yaml 
@@ -63,9 +63,12 @@ kubectl apply -f .confs/project.yaml -n argocd
 kubectl apply -f .confs/application.yaml -n argocd
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d > .confs/argocd_admin.secret
 
-echo "172.18.0.2 gitlab.tdecama.io" >> /etc/hosts 
-echo "172.18.0.2 tdecama.io" >> /etc/hosts 
+echo "172.18.0.2 gitlab.tdecama.io" >> /etc/hosts;
+echo "172.18.0.2 tdecama.io" >> /etc/hosts;
+echo "172.18.0.2 app.tdecama.io" >> /etc/hosts;
 
 git config --global http.sslVerify false
+
+kubectl rollout status deployment.apps/gitlab-webservice-default -n gitlab;
 
 

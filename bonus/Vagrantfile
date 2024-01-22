@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
       vb.memory = "12288"
       vb.cpus = "4"
     end
-    master.vm.provision :shell, :path => "scripts/master.sh", env: {"KUBECONFIG" => "/home/vagrant/.kube/config"}
+    master.vm.provision :shell, :path => "scripts/vagrant.sh", env: {"KUBECONFIG" => "/home/vagrant/.kube/config"}
   end
   
 end
