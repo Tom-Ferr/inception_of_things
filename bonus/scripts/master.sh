@@ -33,6 +33,9 @@ chmod 700 get_helm.sh
 
 sleep 60
 
+kubectl delete configmaps coredns -n kube-system
+kubectl create -n kube-system -f /home/parrot/confs/coredns_config.yaml 
+
 # #Nginx
 kubectl create namespace nginx-ingress
 helm repo add nginx-stable https://helm.nginx.com/stable
