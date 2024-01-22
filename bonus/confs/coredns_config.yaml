@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  Corefile: ".:53 {\n    errors\n    health\n    ready\n    kubernetes cluster.local
+    in-addr.arpa ip6.arpa {\n      pods insecure\n      fallthrough in-addr.arpa ip6.arpa\n
+    \   }\n    hosts /etc/coredns/NodeHosts {\n      ttl 60\n      reload 15s\n      fallthrough\n
+    \   }\n    prometheus :9153\n    forward . /etc/resolv.conf\n    cache 30\n    loop\n
+    \   reload\n    loadbalance\n    import /etc/coredns/custom/*.override\n}\ntdecama.io:53
+    {\n    errors\n    hosts {       \n        172.18.0.2 gitlab.tdecama.io       \n
+    \   }\n}\nimport /etc/coredns/custom/*.server\n"
+  NodeHosts: |
+    172.18.0.1 host.k3d.internal
+    172.18.0.3 k3d-my-cluster-agent-0
+    172.18.0.4 k3d-my-cluster-agent-1
+    172.18.0.5 k3d-my-cluster-serverlb
+    172.18.0.2 k3d-my-cluster-server-0
+kind: ConfigMap
+metadata:
+  annotations:
+    objectset.rio.cattle.io/applied: H4sIAAAAAAAA/4yQQa/TMBCE/4q158TESfsSLHFA74KE4Mipl028aUzc3creV1RV77+jqICQUIHbWOP9NDM3wHP8QrlEYfBwcVBBQEXwN3iWTHNMBB6s33fmdmBjjKGcJZe7XgiTLnedCcP1LteXkTKTUjFTeilK2SaBCj5LoA9StIAH17fWDbaxzixS1K5dsJGVMmM68C+3M2sX6tO1/gGq8UisdXNgB68VrJEDeHgWnuPxE56hghMp/qyAzKKoUbhsTxm/0qSF1OYodkLVRDbKm7gxoHroyzemXB8vK3hYu/Kbc3GV+Rg5vHsfgvA/EYynbc5JMgUu//W9nHHabrZN63ItSqeteMKR0l9LLVgW8DBO1A5d+3YYnOt3HTbd8ITj3jVzOz/1NPe7dtdM+36D/hHvYYDX7wEAAP//D4M5yDkCAAA
+    objectset.rio.cattle.io/id: ""
+    objectset.rio.cattle.io/owner-gvk: k3s.cattle.io/v1, Kind=Addon
+    objectset.rio.cattle.io/owner-name: coredns
+    objectset.rio.cattle.io/owner-namespace: kube-system
+  creationTimestamp: "2024-01-19T01:58:53Z"
+  labels:
+    objectset.rio.cattle.io/hash: bce283298811743a0386ab510f2f67ef74240c57
+  name: coredns
+  namespace: kube-system
+  resourceVersion: "3136"
+  uid: 4e6c67ec-4b51-4d20-b1d3-b320333fa454
